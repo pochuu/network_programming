@@ -1,6 +1,8 @@
 # Dns-spoof
 DNS spoof, typu man in the middle attack, po wykonaniu arp spoofingu przechwytuje pakiety lib pcap'em z filtrem na "dst port 53", a następnie tworzy DNS response z podanym ip, które jest zdefiniowane w argumentach wywołania.
 
+iptables -t filter -A FORWARD -p udp --dport 53 -j DROP - należy jeszcze porzucić przekierowywane dns requesty, oraz aktywować ip_forward w echo 1 > /proc/sys/net/ipv4/ip_forward
+
 ## Sposób kompilacji i uruchomienia
     gcc -Wall ./spoof.c -o ./spoof -lnet -lpcap -pthread
     ./spoof INTERFACE HOST DEST_IP
